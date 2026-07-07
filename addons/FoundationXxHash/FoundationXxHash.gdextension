@@ -1,0 +1,14 @@
+[configuration]
+entry_symbol = "foundation_xxhash_init"
+compatibility_minimum = 4.6
+
+[libraries]
+
+windows.debug.x86_64   = "res://addons/FoundationXxHash/bin/libFoundationXxHash.windows.debug.x86_64.dll"
+windows.release.x86_64 = "res://addons/FoundationXxHash/bin/libFoundationXxHash.windows.release.x86_64.dll"
+
+linux.debug.x86_64   = "res://addons/FoundationXxHash/bin/libFoundationXxHash.linux.debug.x86_64.so"
+linux.release.x86_64 = "res://addons/FoundationXxHash/bin/libFoundationXxHash.linux.release.x86_64.so"
+
+macos.debug.x86_64   = "res://addons/FoundationXxHash/bin/libFoundationXxHash.macos.debug.x86_64.dylib"
+macos.release.x86_64 = "res://addons/FoundationXxHash/bin/libFoundationXxHash.macos.release.x86_64.dylib"
