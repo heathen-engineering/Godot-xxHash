@@ -17,7 +17,7 @@
 
 using Godot;
 
-namespace Heathen.FoundationXxHash
+namespace Heathen
 {
     /// <summary>
     /// Strongly-typed C# facade over the native "XxHash" engine singleton.

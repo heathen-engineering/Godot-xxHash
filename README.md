@@ -87,7 +87,7 @@ var h128 := XxHash.hash128("some.tag.path") # 32-char lowercase hex string
 ## Usage — C#
 
 ```csharp
-using Heathen.FoundationXxHash;
+using Heathen;
 
 uint h32 = XxHash.Hash32("some.tag.path");
 ulong h64 = XxHash.Hash64("some.tag.path");
