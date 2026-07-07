@@ -27,7 +27,7 @@ This is a low-level utility, not a game system in its own right — it exists to
 ## Requirements
 
 - Godot **4.6** or compatible
-- [godot-cpp](https://github.com/godotengine/godot-cpp), checked out locally, for building from source
+- A C++ build environment (GCC/Clang/MSVC + CMake) **only if building from source** — [godot-cpp](https://github.com/godotengine/godot-cpp) is vendored as a git submodule, no separate checkout needed
 
 ---
 
@@ -42,7 +42,7 @@ Learn more or explore other ways to support @ [heathen.group/kb](https://heathen
 
 ---
 
-## What it does
+## What It Does
 
 xxHash provides three hash variants exposed through the `XxHash` engine singleton:
 
@@ -61,16 +61,22 @@ xxHash provides three hash variants exposed through the `XxHash` engine singleto
 
 ## Install
 
-Copy `addons/FoundationXxHash/` into your project's `addons/` folder, or add this repo as a submodule and symlink/copy the folder in. Enable the plugin from **Project Settings → Plugins**.
+Compiled binaries aren't committed to this repo (they're built fresh by CI for every release, so they can never go stale or claim to support a platform they don't). Get a working copy of the addon one of two ways:
+
+- **Pre-built (recommended):** download the `FoundationXxHash` zip from the [Releases page](https://github.com/heathen-engineering/Godot-xxHash/releases) and drop the `addons/FoundationXxHash/` folder it contains straight into your project's `addons/`.
+- **From source:** clone this repo and build it yourself (see below).
+
+Either way, enable the plugin from **Project Settings → Plugins** afterward.
 
 ## Build
 
-Requires [godot-cpp](https://github.com/godotengine/godot-cpp) checked out locally.
-
 ```bash
-cmake -S addons/FoundationXxHash -B addons/FoundationXxHash/build -DGODOT_CPP_PATH=/path/to/Godot-cpp
-cmake --build addons/FoundationXxHash/build
+git clone --recurse-submodules https://github.com/heathen-engineering/Godot-xxHash.git
+cmake -S Godot-xxHash/addons/FoundationXxHash -B Godot-xxHash/addons/FoundationXxHash/build -DCMAKE_BUILD_TYPE=Release
+cmake --build Godot-xxHash/addons/FoundationXxHash/build
 ```
+
+[godot-cpp](https://github.com/godotengine/godot-cpp) is vendored as a git submodule and builds automatically as part of this — no separate SCons step or manual godot-cpp checkout needed. If you already cloned without `--recurse-submodules`, run `git submodule update --init --recursive` first.
 
 Output lands in `addons/FoundationXxHash/bin/`.
 
@@ -94,7 +100,7 @@ ulong h64 = XxHash.Hash64("some.tag.path");
 string h128 = XxHash.Hash128("some.tag.path");
 ```
 
-## Usage — raw byte buffers
+## Usage — Raw Byte Buffers
 
 For non-string data, use the `*_bytes` overloads directly, or include `<xxhash.h>` from C++ for the full streaming/secret-seed API:
 
@@ -113,9 +119,9 @@ XXH64_hash_t h64 = XXH3_64bits_withSeed(data, length, 0);
 
 ---
 
-## Public API reference
+## Public API Reference
 
-### `XxHash` (engine singleton)
+### `XxHash` (Engine Singleton)
 
 | Method | Signature | Description |
 |--------|-----------|--------------|
@@ -126,14 +132,14 @@ XXH64_hash_t h64 = XXH3_64bits_withSeed(data, length, 0);
 | `hash64_bytes` | `(PackedByteArray, int seed = 0) → int` | 64-bit hash of a raw byte buffer |
 | `hash128_bytes` | `(PackedByteArray) → String` | 128-bit hash of a raw byte buffer, 32-char lowercase hex |
 
-### Public headers
+### Public Headers
 
 | Header | Contents |
 |--------|----------|
 | `src/public/XxHash.h` | The `XxHash` GDExtension class — include this if writing another extension against the same singleton |
 | `src/thirdparty/xxHash/xxhash.h` | The full xxHash C library — include for raw buffer access, streaming, or secret-seed APIs |
 
-### CMake dependency (for other GDExtensions)
+### CMake Dependency (for Other GDExtensions)
 
 Other Heathen Foundation extensions (GameplayTags, Lexicon) don't link against this extension's `.so` at runtime — they compile the same vendored `xxhash.c` directly, referenced via a `GODOT_XXHASH_PATH` cache variable pointing at this repo, so there's a single source of truth without a runtime dependency edge:
 
@@ -146,7 +152,7 @@ list(APPEND SOURCES "${XXHASH_SRC_DIR}/xxhash.c")
 
 ---
 
-## Third-party attribution
+## Third-Party Attribution
 
 This extension vendors the xxHash library unchanged.
 
