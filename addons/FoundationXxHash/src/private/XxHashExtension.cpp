@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-#include "XxHash.h"
+#include "XxHashExtension.h"
 
 #include "xxhash.h"
 

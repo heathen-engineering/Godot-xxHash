@@ -16,7 +16,7 @@
  */
 
 #include "register_types.h"
-#include "XxHash.h"
+#include "XxHashExtension.h"
 
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/core/class_db.hpp>
