@@ -15,7 +15,11 @@ endif()
 
 string(TOLOWER "${CMAKE_BUILD_TYPE}" TYPE_STRING)
 
-if(WIN32)
+if(ANDROID)
+    set(PLATFORM "android")
+elseif(CMAKE_SYSTEM_NAME STREQUAL "iOS")
+    set(PLATFORM "ios")
+elseif(WIN32)
     set(PLATFORM "windows")
 elseif(APPLE)
     set(PLATFORM "macos")
@@ -23,7 +27,20 @@ else()
     set(PLATFORM "linux")
 endif()
 
-set(ARCH "x86_64")
+if(ANDROID)
+    # Godot's own arch names: arm64-v8a -> arm64, armeabi-v7a -> arm32.
+    if(ANDROID_ABI STREQUAL "arm64-v8a")
+        set(ARCH "arm64")
+    elseif(ANDROID_ABI STREQUAL "armeabi-v7a")
+        set(ARCH "arm32")
+    else()
+        set(ARCH "${ANDROID_ABI}")
+    endif()
+elseif(PLATFORM STREQUAL "ios")
+    set(ARCH "arm64")
+else()
+    set(ARCH "x86_64")
+endif()
 
 message(STATUS "Building: ${CMAKE_BUILD_TYPE} on ${PLATFORM} ${ARCH}")
 message(STATUS "GODOT_CPP_PATH: ${GODOT_CPP_PATH}")
@@ -37,7 +54,14 @@ add_subdirectory(${GODOT_CPP_PATH} ${CMAKE_BINARY_DIR}/godot-cpp)
 
 file(GLOB_RECURSE SOURCES "src/private/*.cpp" "src/thirdparty/xxHash/*.c")
 
-add_library(FoundationXxHash SHARED ${SOURCES})
+# iOS does not allow dynamically-loaded GDExtensions — Godot requires them
+# statically linked into the exported binary there (unlike every other
+# platform this addon targets).
+if(PLATFORM STREQUAL "ios")
+    add_library(FoundationXxHash STATIC ${SOURCES})
+else()
+    add_library(FoundationXxHash SHARED ${SOURCES})
+endif()
 
 target_include_directories(FoundationXxHash PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/public
@@ -51,9 +75,10 @@ set_target_properties(FoundationXxHash
     PREFIX ""
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin"
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin"
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin"
     OUTPUT_NAME "libFoundationXxHash.${PLATFORM}.${TYPE_STRING}.${ARCH}"
 )
 
-if(NOT WIN32)
+if(NOT WIN32 AND NOT PLATFORM STREQUAL "ios")
     target_link_options(FoundationXxHash PRIVATE "-rdynamic")
 endif()

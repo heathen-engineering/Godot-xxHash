@@ -12,3 +12,16 @@ linux.release.x86_64 = "res://addons/FoundationXxHash/bin/libFoundationXxHash.li
 
 macos.debug.x86_64   = "res://addons/FoundationXxHash/bin/libFoundationXxHash.macos.debug.x86_64.dylib"
 macos.release.x86_64 = "res://addons/FoundationXxHash/bin/libFoundationXxHash.macos.release.x86_64.dylib"
+
+android.debug.arm64    = "res://addons/FoundationXxHash/bin/libFoundationXxHash.android.debug.arm64.so"
+android.release.arm64  = "res://addons/FoundationXxHash/bin/libFoundationXxHash.android.release.arm64.so"
+android.debug.arm32    = "res://addons/FoundationXxHash/bin/libFoundationXxHash.android.debug.arm32.so"
+android.release.arm32  = "res://addons/FoundationXxHash/bin/libFoundationXxHash.android.release.arm32.so"
+android.debug.x86_64   = "res://addons/FoundationXxHash/bin/libFoundationXxHash.android.debug.x86_64.so"
+android.release.x86_64 = "res://addons/FoundationXxHash/bin/libFoundationXxHash.android.release.x86_64.so"
+
+; iOS GDExtensions must be statically linked, not dynamically loaded — see
+; Godot-Game-Framework's .gdextension for the full rationale. This is a
+; device-only (arm64) cross-compile, not yet wired into an actual iOS export.
+ios.debug.arm64   = "res://addons/FoundationXxHash/bin/libFoundationXxHash.ios.debug.arm64.a"
+ios.release.arm64 = "res://addons/FoundationXxHash/bin/libFoundationXxHash.ios.release.arm64.a"
