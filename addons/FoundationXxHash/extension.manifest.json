@@ -1,0 +1,13 @@
+{
+    "schema_version": 1,
+    "id": "FoundationXxHash",
+    "display_name": "Foundation for xxHash",
+    "version": "1.0.1",
+    "repository_url": "https://github.com/heathen-engineering/Godot-xxHash",
+    "source": {
+        "type": "github_release",
+        "repo": "heathen-engineering/Godot-xxHash"
+    },
+    "gated": false,
+    "dependencies": []
+}
