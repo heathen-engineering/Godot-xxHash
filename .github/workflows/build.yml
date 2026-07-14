@@ -188,6 +188,7 @@ jobs:
           cp -r addons/FoundationXxHash/CSharp package/addons/FoundationXxHash/
           cp -r addons/FoundationXxHash/src package/addons/FoundationXxHash/
           cp addons/FoundationXxHash/plugin.cfg package/addons/FoundationXxHash/
+          cp addons/FoundationXxHash/extension.manifest.json package/addons/FoundationXxHash/
           cp addons/FoundationXxHash/FoundationXxHash.gdextension package/addons/FoundationXxHash/
           mkdir -p package/addons/FoundationXxHash/bin
           cp artifacts/* package/addons/FoundationXxHash/bin/

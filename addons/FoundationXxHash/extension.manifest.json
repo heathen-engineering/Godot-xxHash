@@ -2,13 +2,13 @@
     "schema_version": 2,
     "id": "FoundationXxHash",
     "display_name": "Foundation for xxHash",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "repository_url": "https://github.com/heathen-engineering/Godot-xxHash",
     "documentation_url": "https://heathen.group/kb/do-more/",
-    "support_url": "https://github.com/heathen-engineering/Godot-xxHash/issues",
+    "support_url": "https://discord.gg/xmtRNkW7hW",
     "license_url": "https://github.com/heathen-engineering/Godot-xxHash/blob/main/LICENSE",
     "publisher": {
-        "name": "Heathen Engineering Limited",
+        "name": "Heathen Group",
         "url": "https://heathen.group"
     },
     "description": "xxHash (32/64/128-bit) exposed to GDScript and C# as an engine singleton — a low-level dependency shared by GameplayTags, Lexicon, and Ogham Storyteller.",
