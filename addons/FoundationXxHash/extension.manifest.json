@@ -2,7 +2,7 @@
     "schema_version": 2,
     "id": "FoundationXxHash",
     "display_name": "Foundation for xxHash",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "repository_url": "https://github.com/heathen-engineering/Godot-xxHash",
     "documentation_url": "https://heathen.group/kb/do-more/",
     "support_url": "https://github.com/heathen-engineering/Godot-xxHash/issues",
