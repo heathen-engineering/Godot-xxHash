@@ -4,14 +4,14 @@
 ![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green?style=flat-square)
 ![Godot](https://img.shields.io/badge/Godot-4.6%20%2B-%23478CBF?style=flat-square&logo=godotengine&logoColor=white)
 
-A Godot 4 GDExtension that bundles [xxHash](https://xxhash.com) — an extremely fast non-cryptographic hash algorithm by **Yann Collet** — and exposes it to GDScript and C#.
+A Godot 4 GDExtension that bundles [xxHash](https://xxhash.com), an extremely fast non-cryptographic hash algorithm by **Yann Collet**, and exposes it to GDScript and C#.
 
 - **License (this extension):** Apache 2.0
-- **License (xxHash library):** BSD 2-Clause — see [`addons/FoundationXxHash/src/thirdparty/xxHash/LICENSE`](addons/FoundationXxHash/src/thirdparty/xxHash/LICENSE)
+- **License (xxHash library):** BSD 2-Clause, see [`addons/FoundationXxHash/src/thirdparty/xxHash/LICENSE`](addons/FoundationXxHash/src/thirdparty/xxHash/LICENSE)
 - **Origin:** Heathen Group
 - **Platforms:** Windows, Linux, macOS
 
-This is a low-level utility, not a game system in its own right — it exists to give the other Heathen Foundation extensions (GameplayTags, Lexicon Localisation, Ogham Storyteller) zero-allocation, non-cryptographic hashing for keys and identifiers.
+This is a low-level utility, not a game system in its own right. It exists to give the other Heathen Foundation extensions (GameplayTags, Lexicon Localisation, Ogham Storyteller) zero-allocation, non-cryptographic hashing for keys and identifiers.
 
 ---
 
@@ -20,14 +20,20 @@ This is a low-level utility, not a game system in its own right — it exists to
 [![O3DE](https://img.shields.io/badge/O3DE-25.10%20%2B-%2300AEEF?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAxTDEgNy40djkuMkwxMiAyM2wxMS02LjRWNy40TDEyIDF6bTkuMSAxNC45TDExLjUgMjEuM2wtOC42LTYuNFY4LjFsOC42LTYuNCA5LjEgNi40djYuOHpNMTEuNSA0LjZMMi45IDkuNnY0LjhsOC42IDUuMSA4LjYtNS4xVjkuNmwtOC42LTUuMHoiLz48L3N2Zz4=)](https://github.com/heathen-engineering/O3DE-xxHash)
 
 > [!TIP]
-> **Looking for Unity?** xxHash ships as part of Unity's `com.unity.collections` package (`Unity.Collections.xxHash3`) — Heathen's Unity Foundation gems consume it directly rather than re-wrapping it.
+> **Looking for Unity?** xxHash ships as part of Unity's `com.unity.collections` package (`Unity.Collections.xxHash3`). Heathen's Unity Foundation gems consume it directly rather than re-wrapping it.
 
 ---
 
 ## Requirements
 
 - Godot **4.6** or compatible
-- A C++ build environment (GCC/Clang/MSVC + CMake) **only if building from source** — [godot-cpp](https://github.com/godotengine/godot-cpp) is vendored as a git submodule, no separate checkout needed
+- A C++ build environment (GCC/Clang/MSVC + CMake) **only if building from source**. [godot-cpp](https://github.com/godotengine/godot-cpp) is vendored as a git submodule, no separate checkout needed
+
+---
+
+## Support
+
+For general questions, help, and troubleshooting, join our [Discord](https://discord.gg/xmtRNkW7hW). Thousands of developers are there and can often help faster than waiting on a maintainer. Please use [GitHub Issues](https://github.com/heathen-engineering/Godot-xxHash/issues) for a confirmed bug or a feature request that needs tracking, not general support questions.
 
 ---
 
@@ -49,13 +55,13 @@ xxHash provides three hash variants exposed through the `XxHash` engine singleto
 | Function | Algorithm | Output | Notes |
 |----------|-----------|--------|-------|
 | `hash32` | XXH32 | `int` (32-bit) | Classic algorithm. XXH3 has no 32-bit variant; XXH32 is used here. |
-| `hash64` | XXH3\_64bits | `int` (64-bit) | Modern 64-bit (xxHash v3); preferred for all new use cases — this is the hash space GameplayTags, Lexicon, and Ogham share. |
+| `hash64` | XXH3\_64bits | `int` (64-bit) | Modern 64-bit (xxHash v3), preferred for all new use cases. This is the hash space GameplayTags, Lexicon, and Ogham share. |
 | `hash128` | XXH3\_128bits | `String` | Modern 128-bit (xxHash v3); returned as a 32-character lowercase hex string, since Godot has no native 128-bit type. |
 
 `hash32`/`hash64` accept a seed. `hash128` has no seed parameter. Both string and raw byte-buffer (`PackedByteArray`) overloads are provided for every width (`hash32_bytes`, `hash64_bytes`, `hash128_bytes`).
 
 > [!NOTE]
-> `hash32` uses the legacy XXH32 algorithm because the xxHash v3 family has no native 32-bit output. Prefer `hash64` for any new work where the output width isn't constrained — it's what every other Heathen Foundation extension standardises on for key hashing.
+> `hash32` uses the legacy XXH32 algorithm because the xxHash v3 family has no native 32-bit output. Prefer `hash64` for any new work where the output width isn't constrained. It's what every other Heathen Foundation extension standardises on for key hashing.
 
 ---
 
@@ -76,13 +82,13 @@ cmake -S Godot-xxHash/addons/FoundationXxHash -B Godot-xxHash/addons/FoundationX
 cmake --build Godot-xxHash/addons/FoundationXxHash/build
 ```
 
-[godot-cpp](https://github.com/godotengine/godot-cpp) is vendored as a git submodule and builds automatically as part of this — no separate SCons step or manual godot-cpp checkout needed. If you already cloned without `--recurse-submodules`, run `git submodule update --init --recursive` first.
+[godot-cpp](https://github.com/godotengine/godot-cpp) is vendored as a git submodule and builds automatically as part of this, no separate SCons step or manual godot-cpp checkout needed. If you already cloned without `--recurse-submodules`, run `git submodule update --init --recursive` first.
 
 Output lands in `addons/FoundationXxHash/bin/`.
 
 ---
 
-## Usage — GDScript
+## Usage: GDScript
 
 ```gdscript
 var h32 := XxHash.hash32("some.tag.path", 0)
@@ -90,7 +96,7 @@ var h64 := XxHash.hash64("some.tag.path", 0)
 var h128 := XxHash.hash128("some.tag.path") # 32-char lowercase hex string
 ```
 
-## Usage — C#
+## Usage: C#
 
 ```csharp
 using Heathen;
@@ -100,7 +106,7 @@ ulong h64 = XxHash.Hash64("some.tag.path");
 string h128 = XxHash.Hash128("some.tag.path");
 ```
 
-## Usage — Raw Byte Buffers
+## Usage: Raw Byte Buffers
 
 For non-string data, use the `*_bytes` overloads directly, or include `<xxhash.h>` from C++ for the full streaming/secret-seed API:
 
@@ -136,12 +142,12 @@ XXH64_hash_t h64 = XXH3_64bits_withSeed(data, length, 0);
 
 | Header | Contents |
 |--------|----------|
-| `src/public/XxHash.h` | The `XxHash` GDExtension class — include this if writing another extension against the same singleton |
-| `src/thirdparty/xxHash/xxhash.h` | The full xxHash C library — include for raw buffer access, streaming, or secret-seed APIs |
+| `src/public/XxHashExtension.h` | The `XxHash` GDExtension class, include this if writing another extension against the same singleton |
+| `src/thirdparty/xxHash/xxhash.h` | The full xxHash C library, include for raw buffer access, streaming, or secret-seed APIs |
 
 ### CMake Dependency (for Other GDExtensions)
 
-Other Heathen Foundation extensions (GameplayTags, Lexicon) don't link against this extension's `.so` at runtime — they compile the same vendored `xxhash.c` directly, referenced via a `GODOT_XXHASH_PATH` cache variable pointing at this repo, so there's a single source of truth without a runtime dependency edge:
+Other Heathen Foundation extensions (GameplayTags, Lexicon) don't link against this extension's `.so` at runtime. They compile the same vendored `xxhash.c` directly, referenced via a `GODOT_XXHASH_PATH` cache variable pointing at this repo, so there's a single source of truth without a runtime dependency edge:
 
 ```cmake
 set(GODOT_XXHASH_PATH "/path/to/Godot-xxHash" CACHE PATH "...")
@@ -156,7 +162,7 @@ list(APPEND SOURCES "${XXHASH_SRC_DIR}/xxhash.c")
 
 This extension vendors the xxHash library unchanged.
 
-> **xxHash** — Extremely Fast Hash algorithm
+> **xxHash**: Extremely Fast Hash algorithm
 > Copyright (C) 2012–2023 Yann Collet
 > BSD 2-Clause License
 > Homepage: <https://xxhash.com>
